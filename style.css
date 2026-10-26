@@ -168,9 +168,7 @@ footer a:focus-visible {
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 24px;
-    background:
-        linear-gradient(to top, #091423 8%, transparent 70%),
-        linear-gradient(145deg, #17304d, #0b1727);
+    background: linear-gradient(145deg, #17304d, #0b1727);
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
 }
 
@@ -184,21 +182,29 @@ footer a:focus-visible {
     border: 1px solid rgba(76, 168, 255, 0.35);
     border-radius: 50%;
     box-shadow: 0 0 100px rgba(76, 168, 255, 0.16);
+    z-index: 1;
 }
 
-.profile-placeholder {
+.profile-photo {
     position: absolute;
     inset: 0;
-    display: grid;
-    place-items: center;
-    color: rgba(255, 255, 255, 0.055);
-    font-size: 10rem;
-    font-weight: 900;
-    letter-spacing: -0.08em;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 34%;
+    filter: saturate(0.86) contrast(1.04);
 }
 
-.profile-card > div:last-child {
+.profile-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 15, 28, 0.98) 3%, rgba(5, 15, 28, 0.62) 28%, transparent 68%);
+}
+
+.profile-content {
     position: relative;
+    z-index: 2;
 }
 
 .profile-card h2,
@@ -345,7 +351,107 @@ footer a:focus-visible {
 }
 
 .featured-card {
+    grid-column: span 2;
     background: linear-gradient(135deg, rgba(76, 168, 255, 0.13), rgba(13, 25, 41, 0.7));
+}
+
+.study-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.4rem;
+}
+
+.study-topics span {
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(76, 168, 255, 0.25);
+    border-radius: 999px;
+    background: rgba(76, 168, 255, 0.06);
+    color: var(--blue-light);
+    font-size: 0.74rem;
+    font-weight: 700;
+}
+
+.certification-grid {
+    display: grid;
+    grid-template-columns: 1.45fr 0.55fr;
+    gap: 1rem;
+}
+
+.certification-card {
+    min-height: 310px;
+    display: grid;
+    grid-template-columns: minmax(220px, 0.9fr) 1.1fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+}
+
+.certificate-preview {
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(76, 168, 255, 0.25);
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.certificate-preview:hover,
+.certificate-preview:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--blue);
+}
+
+.certificate-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.certification-mark {
+    width: 66px;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(76, 168, 255, 0.35);
+    border-radius: 50%;
+    color: var(--blue-light);
+    font-size: 1.6rem;
+    font-weight: 850;
+}
+
+.certification-copy h3 {
+    margin: 0 0 0.6rem;
+    font-size: clamp(1.55rem, 3vw, 2.25rem);
+    line-height: 1.15;
+}
+
+.certification-copy > p:not(.card-label) {
+    margin: 0;
+    color: var(--muted);
+}
+
+.certificate-link {
+    display: inline-flex;
+    gap: 0.45rem;
+    margin-top: 1.4rem;
+    color: var(--blue-light);
+    font-weight: 750;
+}
+
+.certificate-link:hover,
+.certificate-link:focus-visible {
+    color: var(--text);
+}
+
+.certification-placeholder {
+    grid-template-columns: 1fr;
+    align-content: center;
+    opacity: 0.72;
 }
 
 .skill-card {
@@ -450,6 +556,10 @@ footer p {
         grid-template-columns: 1fr;
         gap: 3rem;
     }
+
+    .certification-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 620px) {
@@ -500,6 +610,15 @@ footer p {
 
     .project-main {
         grid-column: auto;
+    }
+
+    .featured-card {
+        grid-column: auto;
+    }
+
+    .certification-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     footer {
